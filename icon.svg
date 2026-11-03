@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+<rect width="512" height="512" rx="112" fill="#6542d5"/>
+<path d="M96 145q80-34 160 10v220q-80-44-160-10z" fill="#fff"/>
+<path d="M416 145q-80-34-160 10v220q80-44 160-10z" fill="#f5eaff"/>
+<path d="M256 155v220" stroke="#ffb84d" stroke-width="16" stroke-linecap="round"/>
+<text x="256" y="440" text-anchor="middle" font-family="Arial,sans-serif" font-size="38" font-weight="bold" fill="#fff">RT</text>
+</svg>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#5b35c9">
+<meta name="description" content="Rhema Terefe — offline student learning hub for Tercha High School.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Rhema Terefe">
+<title>Rhema Terefe | Tercha High School</title>
+<style>
+:root{--bg:#f5f3ff;--panel:#fff;--text:#211b35;--muted:#716b82;--primary:#6542d5;--accent:#ffb84d;--line:#e8e2f5}
+body.dark{--bg:#171326;--panel:#251e38;--text:#f5f0ff;--muted:#b9afcc;--line:#403653}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px Arial,sans-serif;transition:.2s}
+header{background:linear-gradient(120deg,#5130bd,#8a56e8);color:white;padding:25px max(20px,calc((100% - 1100px)/2));}
+header h1{margin:0 0 6px;font-size:30px}header p{margin:0;opacity:.9}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+button,select,input,textarea{font:inherit;border-radius:10px;padding:10px 12px;border:1px solid var(--line)}
+button{cursor:pointer;background:var(--primary);color:white;border:0;font-weight:bold}
+button.secondary{background:var(--panel);color:var(--text);border:1px solid var(--line)}
+main{max-width:1100px;margin:22px auto;padding:0 16px}
+.welcome{background:var(--panel);padding:20px;border-radius:18px;box-shadow:0 5px 22px #34205a12;margin-bottom:18px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+nav button{background:var(--panel);color:var(--text);border:1px solid var(--line)}
+nav button.active{background:var(--primary);color:white}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.card,.section{background:var(--panel);border:1px solid var(--line);padding:18px;border-radius:16px}
+.card h3{margin:8px 0}.emoji{font-size:28px}
+.section{display:none}.section.active{display:block}
+label{display:block;margin:12px 0 6px;color:var(--muted)}
+input,select,textarea{background:var(--bg);color:var(--text);width:100%;max-width:100%}
+textarea{min-height:110px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.row>*{flex:1}
+.small{color:var(--muted);font-size:14px}
+#answer{font-weight:bold;margin-top:12px}
+footer{text-align:center;color:var(--muted);padding:30px}
+.lesson{border-bottom:1px solid var(--line);padding:12px 0}
+.flash{font-size:22px;text-align:center;padding:35px 10px;background:var(--bg);border-radius:14px;margin:15px 0}
+
+/* Phone-friendly layout */
+html { -webkit-text-size-adjust: 100%; }
+body { min-width: 320px; }
+button, select, input, textarea { min-height: 44px; }
+button { touch-action: manipulation; }
+nav { overflow-x: auto; flex-wrap: nowrap; padding: 3px 0 8px; -webkit-overflow-scrolling: touch; }
+nav button { flex: 0 0 auto; white-space: nowrap; }
+main { width: 100%; }
+.card, .section, .welcome { min-width: 0; }
+.grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); }
+.row { align-items: stretch; }
+@media (max-width: 600px) {
+  header { padding: 18px 16px; }
+  header h1 { font-size: 25px; }
+  main { margin: 14px auto; padding: 0 12px; }
+  .welcome { padding: 16px; }
+  .welcome .top { align-items: stretch; }
+  .welcome .top > div { width: 100%; }
+  .welcome select { width: 100%; }
+  .grid { grid-template-columns: 1fr; gap: 10px; }
+  .card, .section { padding: 15px; border-radius: 14px; }
+  nav { margin: 12px 0; }
+  nav button { padding: 10px 13px; }
+  .row { flex-direction: column; }
+  .row > * { width: 100%; }
+  .flash { font-size: 20px; padding: 28px 12px; }
+  footer { padding: 22px 12px; }
+}
+
+</style>
+</head>
+<body>
+<header><div class="top"><div><h1>🌟 Rhema Terefe</h1><p>Student Learning Hub · Tercha High School</p></div><button class="secondary" onclick="toggleTheme()">🌙 Dark / Light</button></div></header>
+<main>
+<div class="welcome">
+ <div class="top"><div><h2>Welcome, learner!</h2><p class="small">Learn, practise and keep your study notes — even when you are offline.</p></div>
+ <div style="min-width:150px"><label for="grade">Choose your grade</label><select id="grade"><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option></select></div></div>
+</div>
+<nav>
+<button class="active" onclick="showTab('home',this)">Home</button>
+<button onclick="showTab('lessons',this)">Lessons</button>
+<button onclick="showTab('quiz',this)">Quiz</button>
+<button onclick="showTab('notes',this)">My Notes</button>
+<button onclick="showTab('cards',this)">Flashcards</button>
+<button onclick="showTab('chat',this)">Study Help</button>
+<button onclick="showTab('groups',this)">Student Groups</button>
+</nav>
+<section id="home" class="section active">
+ <h2>Your learning space</h2><div class="grid">
+  <div class="card"><div class="emoji">📚</div><h3>Lessons</h3><p class="small">Review short study notes and key ideas.</p><button onclick="go('lessons')">Open lessons</button></div>
+  <div class="card"><div class="emoji">📝</div><h3>Practice quiz</h3><p class="small">Test what you have learned.</p><button onclick="go('quiz')">Start quiz</button></div>
+  <div class="card"><div class="emoji">💡</div><h3>Flashcards</h3><p class="small">Remember important terms and meanings.</p><button onclick="go('cards')">Study cards</button></div>
+  <div class="card"><div class="emoji">🎓</div><h3>Scholarships</h3><p class="small">Prepare your grades, certificates, essay and application documents. Check official scholarship websites when online.</p></div>
+ </div>
+</section>
+<section id="lessons" class="section"><h2>Study lessons</h2><p class="small">Starter examples. Add your own curriculum lessons here.</p>
+ <div class="lesson"><h3>English — Wish</h3><p>Use <b>wish + past simple</b> to talk about an unreal present: “I wish I had more time.” Use <b>wish + past perfect</b> for regret about the past: “I wish I had studied.”</p></div>
+ <div class="lesson"><h3>English — Reason clauses</h3><p>Because, since and as introduce a reason. Example: “I stayed home because I was sick.”</p></div>
+ <div class="lesson"><h3>Mathematics — Linear equation</h3><p>A linear equation has the variable to the first power. Example: 2x + 4 = 10, so 2x = 6 and x = 3.</p></div>
+ <div class="lesson"><h3>Study tip</h3><p>Read one topic, write a short summary, then answer practice questions without looking at your notes.</p></div>
+</section>
+<section id="quiz" class="section"><h2>Quick English quiz</h2><p>Choose the correct answer.</p>
+ <p><b>1. I wish I _____ taller.</b></p>
+ <label><input type="radio" name="q1" value="am" style="width:auto"> am</label>
+ <label><input type="radio" name="q1" value="were" style="width:auto"> were</label>
+ <label><input type="radio" name="q1" value="will" style="width:auto"> will</label>
+ <p><b>2. I stayed home _____ it was raining.</b></p>
+ <label><input type="radio" name="q2" value="because" style="width:auto"> because</label>
+ <label><input type="radio" name="q2" value="although" style="width:auto"> although</label>
+ <label><input type="radio" name="q2" value="unless" style="width:auto"> unless</label>
+ <p><b>3. What is the past perfect form?</b></p>
+ <label><input type="radio" name="q3" value="had gone" style="width:auto"> had gone</label>
+ <label><input type="radio" name="q3" value="goes" style="width:auto"> goes</label>
+ <label><input type="radio" name="q3" value="going" style="width:auto"> going</label>
+ <button onclick="checkQuiz()">Check answers</button><div id="answer"></div>
+</section>
+<section id="notes" class="section"><h2>My study notes</h2><p class="small">Notes are saved in this browser on this device.</p>
+ <textarea id="noteText" placeholder="Write your lesson notes here..."></textarea><p><button onclick="saveNotes()">Save notes</button> <button class="secondary" onclick="loadNotes()">Load saved notes</button></p><div id="noteStatus" class="small"></div>
+</section>
+<section id="cards" class="section"><h2>Flashcards</h2><p class="small">Tap “Show answer” to reveal the meaning.</p>
+ <div class="flash" id="flashText">Vocabulary: diligent</div><div class="row"><button onclick="flipCard()">Show answer</button><button class="secondary" onclick="nextCard()">Next card →</button></div>
+</section>
+<section id="chat" class="section"><h2>Study Help</h2><p>This starter version works offline but does not include a live AI model. Use the box to prepare a question for your teacher or study group.</p>
+ <textarea id="question" placeholder="Write your study question..."></textarea><button onclick="prepareQuestion()">Prepare question</button><p id="prepared" class="small"></p>
+</section>
+<section id="groups" class="section"><h2>Student Groups</h2><p>Use this area to plan class study groups. This offline demo does not send messages to other students.</p>
+ <label>Group name</label><input id="groupName" placeholder="e.g. Grade 12 English Study Group">
+ <label>Study topic</label><input id="groupTopic" placeholder="e.g. Grammar revision">
+ <button onclick="addGroup()">Add group idea</button><div id="groupList"></div>
+</section>
+</main>
+<footer>Rhema Terefe · Tercha High School · Keep learning every day 🌱</footer>
+<script>
+function showTab(id,btn){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active');}
+function go(id){const b=[...document.querySelectorAll('nav button')].find(x=>x.textContent.toLowerCase().includes(id==='cards'?'flashcards':id));showTab(id,b);}
+function toggleTheme(){document.body.classList.toggle('dark');localStorage.setItem('rhemaTheme',document.body.classList.contains('dark')?'dark':'light')}
+if(localStorage.getItem('rhemaTheme')==='dark')document.body.classList.add('dark');
+function checkQuiz(){let score=0;[['q1','were'],['q2','because'],['q3','had gone']].forEach(([q,a])=>{if(document.querySelector('input[name="'+q+'"]:checked')?.value===a)score++});document.getElementById('answer').textContent='You scored '+score+' out of 3.'+(score===3?' Excellent work!':' Review the lesson and try again.')}
+function saveNotes(){localStorage.setItem('rhemaNotes',document.getElementById('noteText').value);document.getElementById('noteStatus').textContent='Saved on this device.'}
+function loadNotes(){document.getElementById('noteText').value=localStorage.getItem('rhemaNotes')||'';document.getElementById('noteStatus').textContent='Saved notes loaded.'}
+const cards=[['diligent','Hard-working and careful.'],['analogy','A comparison showing a similar relationship.'],['regret','A feeling of sadness about something done or not done.'],['scholarship','Financial support for a student’s education.']];
+let cardIndex=0,showing=false;
+function renderCard(){document.getElementById('flashText').textContent=showing?cards[cardIndex][1]:'Vocabulary: '+cards[cardIndex][0]}
+function flipCard(){showing=!showing;renderCard()}
+function nextCard(){cardIndex=(cardIndex+1)%cards.length;showing=false;renderCard()}
+function prepareQuestion(){let q=document.getElementById('question').value.trim();document.getElementById('prepared').textContent=q?'Question ready: '+q:'Please type a question first.'}
+function addGroup(){let n=document.getElementById('groupName').value.trim(),t=document.getElementById('groupTopic').value.trim();if(!n||!t){alert('Enter a group name and topic.');return}let p=document.createElement('p');p.textContent='📘 '+n+' — '+t;document.getElementById('groupList').appendChild(p);document.getElementById('groupName').value='';document.getElementById('groupTopic').value=''}
+loadNotes();
+</script>
+
+<script>
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').catch(err => {
+      console.log('Offline support could not be enabled:', err);
+    });
+  });
+}
+</script>
+
+</body></html>
