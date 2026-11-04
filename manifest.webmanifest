@@ -1,14 +1,19 @@
 {
   "name": "Rhema Terefe — Tercha High School",
   "short_name": "Rhema Terefe",
-  "description": "Student learning hub for Grades 9–12.",
+  "description": "A student and school community app for Tercha High School.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f5f3ff",
-  "theme_color": "#5b35c9",
+  "background_color": "#f5f3fb",
+  "theme_color": "#20104b",
   "icons": [
-    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
   ]
 }
